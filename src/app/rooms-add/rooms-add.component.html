@@ -1,0 +1,99 @@
+<form #roomsForm="ngForm" (ngSubmit)="AddRoom(roomsForm)">
+  <!-- form-group adds gap between fields -->
+  <div class="form-group">
+    <input
+    required
+      class="form-control"
+      type="text"
+      name="roomType"
+      [(ngModel)]="room.roomType"
+      placeholder="Room Type"
+      [ngModelOptions]="{updateOn:'blur'}"
+    />
+  </div>
+  <div class="form-group">
+    <input
+    #roomAmenities="ngModel"
+    minlength="5"
+    maxlength="20"
+      class="form-control"
+      type="text"
+      name="amenities"
+      [(ngModel)]="room.amenities"
+      placeholder="Amenities"
+    />
+  </div>
+  <div class="alert alert-danger" *ngIf="roomAmenities.errors?.['minlength']">
+Amenities should be 5 characters in length
+  </div>
+  <div *ngIf="roomAmenities.dirty && roomAmenities.errors
+  ?.['required']">
+amenities is arequired field</div>
+  <div class="form-group">
+    <input
+    required
+      class="form-control"
+      type="number"
+      name="price"
+      [(ngModel)]="room.price"
+      placeholder="Price"
+    />
+  </div>
+  <div class="form-group">
+    <input
+    required
+      class="form-control"
+      type="photos"
+      name="photos"
+      [(ngModel)]="room.photos"
+      placeholder="Photos(provide link)"
+    />
+  </div>
+  <div class="form-group">
+    <input
+    required
+      class="form-control"
+      type="datetime"
+      name="checkinTime"
+      [(ngModel)]="room.checkinTime"
+      placeholder="Check in Time"
+    />
+  </div>
+  <div class="form-group">
+    <input
+    required
+      class="form-control"
+      type="datetime"
+      name="checkOutTime"
+      [(ngModel)]="room.checkOutTime"
+      placeholder="Check out Time"
+    />
+  </div>
+  <div class="form-group">
+    <input
+    #roomRatings="ngModel"
+    required
+    min="1"
+    max="5"
+      class="form-control"
+      type="number"
+      name="rating"
+      [(ngModel)]="room.rating"
+      placeholder="Rating"
+    />
+  </div>
+  <div *ngIf="roomRatings.errors?.['min']">
+    Ratings should be above 0
+  </div>
+  <div>
+    <button [disabled]="roomsForm.invalid" class="btn btn-primary" type="submit">Submit</button>
+  </div>
+</form>
+{{room |json}}
+<div *ngIf="successMessage!==' '" class="alert alert-success">{{successMessage}}</div>
+
+<!-- {{roomsForm.valid |json}}
+{{roomsForm.pristine |json}}
+{{roomsForm.dirty |json}}
+{{roomsForm.invalid |json}}
+{{roomsForm.value |json}} -->
